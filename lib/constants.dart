@@ -1,1 +1,2 @@
-const int DEFAULT_BOARD_SIZE = 5;
+const int kDefaultBoardSize = 5;
+const Duration kRandomAgentThinkDuration = Duration(milliseconds: 150);

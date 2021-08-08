@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class BoardIndex extends Equatable {
-  BoardIndex({required this.row, required this.col});
+  const BoardIndex({required this.row, required this.col});
 
   final int row;
   final int col;

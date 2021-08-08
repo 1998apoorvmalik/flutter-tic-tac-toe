@@ -1,5 +1,4 @@
 import 'package:tic_tac_toe/board/board_index.dart';
-import 'package:tic_tac_toe/constants.dart';
 import 'package:tic_tac_toe/enums.dart';
 import 'package:tuple/tuple.dart';
 
@@ -37,14 +36,14 @@ class Helper {
 
   static bool isGameWon({required List<List<BoardElementType>> board}) {
     final Tuple2<int, int> bottomLeftIndex =
-        Tuple2<int, int>(DEFAULT_BOARD_SIZE - 1, 0);
-    final Tuple2<int, int> topLeftIndex = Tuple2<int, int>(0, 0);
+        Tuple2<int, int>(board.length - 1, 0);
+    Tuple2<int, int> topLeftIndex = const Tuple2<int, int>(0, 0);
 
     // Check top left diagonal path.
     if (_checkIfBoardPathCompleted(
       board: board,
       startBlockIndex: topLeftIndex,
-      direction: Tuple2(1, 1),
+      direction: const Tuple2(1, 1),
     )) {
       return true;
     }
@@ -53,7 +52,7 @@ class Helper {
     if (_checkIfBoardPathCompleted(
       board: board,
       startBlockIndex: bottomLeftIndex,
-      direction: Tuple2(-1, 1),
+      direction: const Tuple2(-1, 1),
     )) {
       return true;
     }
@@ -64,7 +63,7 @@ class Helper {
         board: board,
         startBlockIndex:
             Tuple2<int, int>(topLeftIndex.item1 + i, topLeftIndex.item2),
-        direction: Tuple2(0, 1),
+        direction: const Tuple2(0, 1),
       )) {
         return true;
       }
@@ -74,7 +73,7 @@ class Helper {
         board: board,
         startBlockIndex:
             Tuple2<int, int>(bottomLeftIndex.item1, bottomLeftIndex.item2 + i),
-        direction: Tuple2(-1, 0),
+        direction: const Tuple2(-1, 0),
       )) {
         return true;
       }
@@ -83,11 +82,11 @@ class Helper {
     return false;
   }
 
-  static _isSafe(Tuple2<int, int> index) =>
+  static _isSafe(Tuple2<int, int> index, int boardSize) =>
       index.item1 > -1 &&
       index.item2 > -1 &&
-      index.item1 < DEFAULT_BOARD_SIZE &&
-      index.item2 < DEFAULT_BOARD_SIZE;
+      index.item1 < boardSize &&
+      index.item2 < boardSize;
 
   static bool _checkIfBoardPathCompleted(
       {required List<List<BoardElementType>> board,
@@ -111,7 +110,7 @@ class Helper {
           _indexIterator.item1 + direction.item1,
           _indexIterator.item2 + direction.item2);
 
-      if (_isSafe(_nextIndex)) {
+      if (_isSafe(_nextIndex, board.length)) {
         _indexIterator = _nextIndex;
         _refBoardElementType =
             board[_indexIterator.item1][_indexIterator.item2];
@@ -126,6 +125,6 @@ class Helper {
         break;
       }
     }
-    return _pathLength == DEFAULT_BOARD_SIZE;
+    return _pathLength == board.length;
   }
 }

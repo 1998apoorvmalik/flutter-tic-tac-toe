@@ -11,3 +11,15 @@ enum GameStatus {
   circleWinner,
   tied,
 }
+
+enum GameType {
+  playWithComputerGoesFirst,
+  playWithComputerGoesSeconds,
+  playWithFriend,
+}
+
+enum AiDifficulty {
+  easy,
+  medium,
+  hard,
+}

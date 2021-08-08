@@ -8,10 +8,21 @@ import 'package:tic_tac_toe/constants.dart';
 part 'board_state.dart';
 
 class BoardCubit extends Cubit<BoardState> {
-  BoardCubit() : super(BoardState.initial(size: DEFAULT_BOARD_SIZE));
+  BoardCubit() : super(BoardState.initial(size: kDefaultBoardSize));
 
   void reset() {
-    emit(BoardState.initial(size: DEFAULT_BOARD_SIZE));
+    emit(BoardState.initial(size: state.board.length));
+  }
+
+  void nextGame() {
+    BoardState newState = BoardState.initial(size: state.board.length);
+    newState = newState.copyWith(crossWins: state.crossWins);
+    newState = newState.copyWith(circleWins: state.circleWins);
+    emit(newState);
+  }
+
+  void changeBoardSize({required int newSize}) {
+    emit(BoardState.initial(size: newSize));
   }
 
   void playTurn({required BoardIndex blockIndex}) {
@@ -32,6 +43,10 @@ class BoardCubit extends Cubit<BoardState> {
       List<BoardIndex> validMoves = Helper.getValidMoves(board: newBoard);
 
       if (Helper.isGameWon(board: newBoard)) {
+        final int _crossWins = state.crossWins +
+            (state.gameStatus == GameStatus.crossTurn ? 1 : 0);
+        final int _circleWins = state.circleWins +
+            (state.gameStatus == GameStatus.circleTurn ? 1 : 0);
         emit(
           BoardState(
             board: newBoard,
@@ -39,6 +54,8 @@ class BoardCubit extends Cubit<BoardState> {
             gameStatus: state.gameStatus == GameStatus.crossTurn
                 ? GameStatus.crossWinner
                 : GameStatus.circleWinner,
+            crossWins: _crossWins,
+            circleWins: _circleWins,
           ),
         );
         return;
@@ -47,7 +64,7 @@ class BoardCubit extends Cubit<BoardState> {
       emit(state.copyWith(
           board: newBoard,
           validMoves: validMoves,
-          gameStatus: validMoves.length > 0 ? newStatus : GameStatus.tied));
+          gameStatus: validMoves.isNotEmpty ? newStatus : GameStatus.tied));
     }
   }
 }
