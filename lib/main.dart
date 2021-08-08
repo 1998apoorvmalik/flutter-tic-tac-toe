@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tic_tac_toe/cubit/game_controller_cubit.dart';
@@ -13,7 +14,8 @@ void main() {
         theme: ThemeData.dark().copyWith(
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
-              padding: const EdgeInsets.all(12),
+              padding:
+                  kIsWeb ? const EdgeInsets.all(24) : const EdgeInsets.all(12),
               primary: Colors.white,
               backgroundColor: Colors.deepOrangeAccent,
               textStyle: const TextStyle(fontSize: 20),

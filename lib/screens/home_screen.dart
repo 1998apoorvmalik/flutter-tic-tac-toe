@@ -16,57 +16,61 @@ class HomeScreen extends StatelessWidget {
     return BlocConsumer<GameControllerCubit, GameControllerState>(
       listener: (context, state) {},
       builder: (BuildContext context, GameControllerState state) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Text(
-              'Tic Tac Toe',
-              style: TextStyle(fontSize: 48),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(
-              height: contentVerticalPaddingAmount * 2,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: contentVerticalPaddingAmount,
-                  horizontal: buttonHorizontalPaddingAmount),
-              child: TextButton(
-                onPressed: () {
-                  context
-                      .read<GameControllerCubit>()
-                      .gameTypeChanged(GameType.playWithFriend);
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Tic Tac Toe',
+                style: TextStyle(fontSize: 48),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: contentVerticalPaddingAmount * 2,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: contentVerticalPaddingAmount,
+                    horizontal: buttonHorizontalPaddingAmount),
+                child: TextButton(
+                  onPressed: () {
+                    context
+                        .read<GameControllerCubit>()
+                        .gameTypeChanged(GameType.playWithFriend);
 
-                  showDialog(
-                      context: context,
-                      builder: (_) => const GameSettingsDialog());
-                },
-                child: const Text(
-                  'Play with Friend',
+                    showDialog(
+                        context: context,
+                        builder: (_) => const GameSettingsDialog());
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 17.0),
+                    child: Text(
+                      'Play with Friend',
+                    ),
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: contentVerticalPaddingAmount,
-                  horizontal: buttonHorizontalPaddingAmount),
-              child: TextButton(
-                onPressed: () {
-                  context
-                      .read<GameControllerCubit>()
-                      .gameTypeChanged(GameType.playWithComputerGoesFirst);
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: contentVerticalPaddingAmount,
+                    horizontal: buttonHorizontalPaddingAmount),
+                child: TextButton(
+                  onPressed: () {
+                    context
+                        .read<GameControllerCubit>()
+                        .gameTypeChanged(GameType.playWithComputerGoesFirst);
 
-                  showDialog(
-                      context: context,
-                      builder: (_) => const GameSettingsDialog());
-                },
-                child: const Text(
-                  'Play with Computer',
+                    showDialog(
+                        context: context,
+                        builder: (_) => const GameSettingsDialog());
+                  },
+                  child: const Text(
+                    'Play with Computer',
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tic_tac_toe/constants.dart';
 import 'package:tic_tac_toe/enums.dart';
 
 class BoardElement extends StatelessWidget {
@@ -37,7 +38,8 @@ class BoardElement extends StatelessWidget {
         onPressed: onPressed,
         icon: Center(
           child: Icon(elementIcon,
-              size: MediaQuery.of(context).size.width / (boardSize + 3)),
+              size: kBoardSideLength /
+                  (boardSize + (elementIcon == Icons.circle_outlined ? 4 : 3))),
         ),
       ),
     );

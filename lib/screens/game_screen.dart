@@ -4,6 +4,7 @@ import 'package:tic_tac_toe/agents/random_agent.dart';
 import 'package:tic_tac_toe/board/board_index.dart';
 import 'package:tic_tac_toe/board/cubit/board_cubit.dart';
 import 'package:tic_tac_toe/board/widgets/widgets.dart';
+import 'package:tic_tac_toe/constants.dart';
 import 'package:tic_tac_toe/cubit/game_controller_cubit.dart';
 import 'package:tic_tac_toe/enums.dart';
 import 'package:tic_tac_toe/game_settings_dialog.dart';
@@ -170,7 +171,9 @@ class GameScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
+              SizedBox(
+                width: kBoardSideLength,
+                height: kBoardSideLength,
                 child: GridView.count(
                   physics: const NeverScrollableScrollPhysics(),
                   padding: const EdgeInsets.symmetric(horizontal: 32.0),
